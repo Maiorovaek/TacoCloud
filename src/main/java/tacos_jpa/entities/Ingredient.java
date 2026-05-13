@@ -1,0 +1,33 @@
+package tacos_jpa.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Data
+
+//@Data неявно добавляет конструктор с обязательными аргументами, но,
+// когда используется @NoArgsConstructor, этот конструктор удаляется
+@AllArgsConstructor//упростить создание объекта Ingredient со всеми инициализированными свойствам
+
+//создание конструктора без аргументов,
+// force=true сделать все свойства финальными c значениями null, 0 или false
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+ //Ingredient помеченая @Entity - сущность JPA.
+// Имя таблицы по умолчанию - Ingredient
+@Entity
+public class Ingredient
+     //  implements Persistable<String >
+{
+   @Id
+   @Column(name = "id")
+    private String id;
+    @Column(name = "name")
+    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private Type type;
+
+    public enum Type {
+        WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+    }
+}
